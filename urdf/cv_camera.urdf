@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<robot name="cv_camera">
+<link name="world"/> 
+<!-- camera joint and dummy link (if we use dummy link we will have to specify static true otherwise we can just use world)-->
+<joint name="camera_joint" type="fixed">
+    <parent link="world"/>
+    <child link="camera_link"/>
+    <origin xyz="0 0 10.0" rpy="0 0 0"/>
+</joint>
+<material name="dark_rubber"> <color rgba="0.18 0.18 0.18 1"/></material>
+<!-- Camera Link -->
+<link name="camera_link">
+  <visual>
+    <geometry>
+      <box size="0.03 0.03 0.03"/>
+    </geometry>
+    <material name="dark_rubber"/>
+  </visual>
+  <collision>
+    <geometry>
+      <box size="0.03 0.03 0.03"/>
+    </geometry>
+  </collision>
+  <inertial>
+    <mass value="0.1"/>
+    <inertia ixx="0.000015" ixy="0.0" ixz="0.0" iyy="0.000015" iyz="0.0" izz="0.000015"/>
+  </inertial>
+</link>
+
+<!-- Optical Link & Joint for ROS standard orientation (X-Right, Y-Down, Z-Forward) -->
+<link name="camera_link_optical"/>
+<joint name="camera_optical_joint" type="fixed">
+  <parent link="camera_link"/>
+  <child link="camera_link_optical"/>
+  <origin xyz="0 0 0" rpy="-1.570796 0 -1.570796"/>
+</joint>
+
+<!-- Gazebo Harmonic Sensor Configuration -->
+<gazebo reference="camera_link">
+  <sensor type="camera" name="rgb_camera">
+    <update_rate>30.0</update_rate>
+    <topic>camera/image</topic> <!-- The Gazebo Transport Topic Name -->
+    <camera name="head">
+      <horizontal_fov>1.047</horizontal_fov>
+      <image>
+        <width>640</width>
+        <height>480</height>
+        <format>R8G8B8</format>
+      </image>
+      <clip>
+        <near>0.05</near>
+        <far>300</far>
+      </clip>
+    </camera>
+  </sensor>
+</gazebo>
+</robot>

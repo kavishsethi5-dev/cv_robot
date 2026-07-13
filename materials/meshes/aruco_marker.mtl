@@ -1,0 +1,8 @@
+# aruco_marker.mtl
+newmtl aruco_material
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+d 1.0
+illum 1
+map_Kd aruco_marker_5x5_250_ID1.png

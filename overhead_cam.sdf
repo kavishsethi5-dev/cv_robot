@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<sdf version="1.9">
+  <model name="overhead_camera">
+    <static>true</static>
+    <!--pose specified in launch file (launch file was was prioritized when I tired)-->
+
+    <link name="camera_link">
+      <visual name="visual">
+        <geometry>
+          <box><size>0.03 0.03 0.03</size></box>
+        </geometry>
+        <material>
+          <ambient>0.18 0.18 0.18 1</ambient>
+          <diffuse>0.18 0.18 0.18 1</diffuse>
+        </material>
+      </visual>
+
+      <sensor type="camera" name="rgb_camera">
+        <update_rate>30.0</update_rate>
+        <topic>camera/image</topic>
+        <camera name="head">
+          <horizontal_fov>1.047</horizontal_fov>
+          <image>
+            <width>640</width>
+            <height>480</height>
+            <format>R8G8B8</format>
+          </image>
+          <clip>
+            <near>0.05</near>
+            <far>300</far>
+          </clip>
+        </camera>
+        <always_on>true</always_on>
+        <visualize>true</visualize>
+      </sensor>
+    </link>
+  </model>
+</sdf>

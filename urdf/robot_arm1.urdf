@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<robot name="robot_arm1">
+  <link name="base">
+    <visual><origin xyz="0 0 0" rpy="0 0 0"/><geometry><mesh filename="package://cv_robot/materials/meshes/arm1/base.stl"/></geometry></visual>
+    <collision><origin xyz="0 0 0" rpy="0 0 0"/><geometry><mesh filename="package://cv_robot/materials/meshes/arm1/base.stl"/></geometry></collision>
+    <inertial><mass value="0.5"/><inertia ixx="0.00050" ixy="0" ixz="0" iyy="0.00050" iyz="0" izz="0.00050"/></inertial>
+  </link>
+  <link name="link1">
+    <visual><origin xyz="0 0 0" rpy="0 0 0"/><geometry><mesh filename="package://cv_robot/materials/meshes/arm1/link1.stl"/></geometry></visual>
+    <collision><origin xyz="0 0 0" rpy="0 0 0"/><geometry><mesh filename="package://cv_robot/materials/meshes/arm1/link1.stl"/></geometry></collision>
+    <inertial><mass value="0.3"/><inertia ixx="0.00030" ixy="0" ixz="0" iyy="0.00030" iyz="0" izz="0.00030"/></inertial>
+  </link>
+  <link name="link2">
+    <visual><origin xyz="0 0 0" rpy="0 0 0"/><geometry><mesh filename="package://cv_robot/materials/meshes/arm1/link2.stl"/></geometry></visual>
+    <collision><origin xyz="0 0 0" rpy="0 0 0"/><geometry><mesh filename="package://cv_robot/materials/meshes/arm1/link2.stl"/></geometry></collision>
+    <inertial><mass value="0.15"/><inertia ixx="0.00015" ixy="0" ixz="0" iyy="0.00015" iyz="0" izz="0.00015"/></inertial>
+  </link>
+  <link name="link3">
+    <visual><origin xyz="0 0 0" rpy="0 0 0"/><geometry><mesh filename="package://cv_robot/materials/meshes/arm1/link3.stl"/></geometry></visual>
+    <collision><origin xyz="0 0 0" rpy="0 0 0"/><geometry><mesh filename="package://cv_robot/materials/meshes/arm1/link3.stl"/></geometry></collision>
+    <inertial><mass value="0.15"/><inertia ixx="0.00015" ixy="0" ixz="0" iyy="0.00015" iyz="0" izz="0.00015"/></inertial>
+  </link>
+  <link name="finger_a">
+    <visual><origin xyz="0 0 0" rpy="0 0 0"/><geometry><mesh filename="package://cv_robot/materials/meshes/arm1/finger_a.stl"/></geometry></visual>
+    <collision><origin xyz="0 0 0" rpy="0 0 0"/><geometry><mesh filename="package://cv_robot/materials/meshes/arm1/finger_a.stl"/></geometry></collision>
+    <inertial><mass value="0.05"/><inertia ixx="0.00005" ixy="0" ixz="0" iyy="0.00005" iyz="0" izz="0.00005"/></inertial>
+  </link>
+  <link name="finger_b">
+    <visual><origin xyz="0 0 0" rpy="0 0 0"/><geometry><mesh filename="package://cv_robot/materials/meshes/arm1/finger_b.stl"/></geometry></visual>
+    <collision><origin xyz="0 0 0" rpy="0 0 0"/><geometry><mesh filename="package://cv_robot/materials/meshes/arm1/finger_b.stl"/></geometry></collision>
+    <inertial><mass value="0.05"/><inertia ixx="0.00005" ixy="0" ixz="0" iyy="0.00005" iyz="0" izz="0.00005"/></inertial>
+  </link>
+  <joint name="base_to_link1" type="revolute">
+    <parent link="base"/><child link="link1"/>
+    <origin xyz="0.00000 0.00000 0.07338" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-3.14" upper="3.14" effort="10" velocity="1.0"/>
+  </joint>
+  <joint name="link1_to_link2" type="revolute">
+    <parent link="link1"/><child link="link2"/>
+    <origin xyz="0.01398 -0.13105 0.07517" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-1.57" upper="1.57" effort="10" velocity="1.0"/>
+  </joint>
+  <joint name="link2_to_link3" type="revolute">
+    <parent link="link2"/><child link="link3"/>
+    <origin xyz="-0.00612 0.02516 0.01424" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-1.57" upper="1.57" effort="10" velocity="1.0"/>
+  </joint>
+  <joint name="link3_to_finger_a" type="revolute">
+    <parent link="link3"/><child link="finger_a"/>
+    <origin xyz="0.00108 0.01699 0.01932" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="0.0" upper="0.8" effort="10" velocity="1.0"/>
+  </joint>
+  <joint name="link3_to_finger_b" type="revolute">
+    <parent link="link3"/><child link="finger_b"/>
+    <origin xyz="0.00246 0.02664 0.01029" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.8" upper="0.0" effort="10" velocity="1.0"/>
+  </joint>
+</robot>
