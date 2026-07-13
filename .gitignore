@@ -1,8 +1,26 @@
+# ROS2 / colcon build artifacts
 build/
 install/
 log/
+
+# Python
 __pycache__/
-*.pyc
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+*.egg
+
+# Blender (arm URDF pipeline)
+*.blend1
+*.blend2
+
+# Editor / OS
 .vscode/
-*.db
-*.vc.db
+.idea/
+*.swp
+*~
+.DS_Store
+
+# matplotlib / eval output (uncomment if don't want to commit plots)
+# *.png
