@@ -15,7 +15,7 @@ Differential drive robot navigation stack built in ROS2 Jazzy + Gazebo Harmonic,
 
 ## Adding the ArUco marker (Gazebo Harmonic)
 
-This one took some trial and error, so documenting it properly. The obvious approach — generate a marker PNG, drop it in a texture folder, point the URDF material at it, does **not** work in Gazebo Harmonic. It just renders as a plain white square. Harmonic doesn't handle simple material/texture tags the way older Gazebo versions did.
+This one took some trial and error, so documenting it properly. The obvious approach, generate a marker PNG, drop it in a texture folder, point the URDF material at it, does **not** work in Gazebo Harmonic. It just renders as a plain white square. Harmonic doesn't handle simple material/texture tags the way older Gazebo versions did.
 
 - The working method is to define the marker as a hand-written `.obj` mesh with a paired `.mtl` file that references the PNG.
 - An `.obj` file explicitly lists texture coordinates (`vt` lines) per vertex and pairs them to the geometry in its face definitions
