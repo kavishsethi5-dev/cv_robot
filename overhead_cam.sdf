@@ -17,12 +17,12 @@
 
       <sensor type="camera" name="rgb_camera">
         <update_rate>30.0</update_rate>
-        <topic>camera/image</topic>
+        <topic>camera/image</topic> <!--gz auto converted this to /camera/image though it is better to write with /-->
         <camera name="head">
           <horizontal_fov>1.047</horizontal_fov>
           <image>
-            <width>640</width>
-            <height>480</height>
+              <width>3840</width>
+              <height>2160</height>
             <format>R8G8B8</format>
           </image>
           <clip>

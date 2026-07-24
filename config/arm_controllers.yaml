@@ -1,0 +1,42 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 100  # Hz
+
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+    arm_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+    fin_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+
+arm_controller:
+  ros__parameters:
+    joints:
+      - base_to_dummy
+      - dummy_to_link1
+      - link1_to_link2
+      - link2_to_link3
+
+    command_interfaces: [position]
+    state_interfaces: [position, velocity]
+
+    gains: #to prevent sagging due to gravity we need a high p gain
+      base_to_dummy: {p: 100.0, i: 0.0, d: 1.0}
+      dummy_to_link1: {p: 100.0, i: 0.0, d: 1.0}
+      link1_to_link2: {p: 100.0, i: 0.0, d: 1.0}
+      link2_to_link3: {p: 100.0, i: 0.0, d: 1.0}
+
+
+fin_controller:
+  ros__parameters:
+    joints:
+      - link3_to_finger_b
+      - link3_to_finger_a
+
+    command_interfaces: [position]
+    state_interfaces: [position, velocity]
+
+    gains:
+      link3_to_finger_a: {p: 50.0, i: 0.0, d: 0.5}
+      link3_to_finger_b: {p: 50.0, i: 0.0, d: 0.5}

@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+<xacro:macro name="arm" params="parent xyz rpy">
+
+<material name="arm_gray">
+    <color rgba="0.35 0.37 0.4 1"/>
+  </material>
+
+  <joint name="arm_mount_joint" type="fixed">
+    <parent link="${parent}"/>
+    <child link="base"/>
+    <origin xyz="${xyz}" rpy="${rpy}"/>
+  </joint>
+  
+  <link name="base">
+    <visual><origin xyz="0 0 0" rpy="0 0 0"/><geometry><mesh filename="package://cv_robot/materials/meshes/arm1/base.stl" scale="4.8 4.8 4.8"/></geometry><material name="arm_gray"/></visual>
+    <collision><origin xyz="0 0 0" rpy="0 0 0"/><geometry><mesh filename="package://cv_robot/materials/meshes/arm1/base.stl" scale="4.8 4.8 4.8"/></geometry></collision>
+    <inertial><mass value="0.5"/><inertia ixx="0.00050" ixy="0" ixz="0" iyy="0.00050" iyz="0" izz="0.00050"/></inertial>
+  </link>
+  <link name="link1_dummy">
+  <inertial><mass value="0.3"/><inertia ixx="0.00030" ixy="0" ixz="0" iyy="0.00030" iyz="0" izz="0.00030"/></inertial>
+  </link>
+  <link name="link1">
+   <visual><origin xyz="0 0 0" rpy="0 0 0"/><geometry><mesh filename="package://cv_robot/materials/meshes/arm1/link1.stl" scale="4.8 4.8 4.8"/></geometry><material name="arm_gray"/></visual>
+    <collision><origin xyz="0 0 0" rpy="0 0 0"/><geometry><mesh filename="package://cv_robot/materials/meshes/arm1/link1.stl" scale="4.8 4.8 4.8"/></geometry></collision>
+    <inertial><mass value="0.3"/><inertia ixx="0.00030" ixy="0" ixz="0" iyy="0.00030" iyz="0" izz="0.00030"/></inertial>
+  </link>
+
+  <link name="link2">
+    <visual><origin xyz="0 0 0" rpy="0 0 0"/><geometry><mesh filename="package://cv_robot/materials/meshes/arm1/link2.stl" scale="4.8 4.8 4.8"/></geometry><material name="arm_gray"/></visual>
+    <collision><origin xyz="0 0 0" rpy="0 0 0"/><geometry><mesh filename="package://cv_robot/materials/meshes/arm1/link2.stl" scale="4.8 4.8 4.8"/></geometry></collision>
+    <inertial><mass value="0.15"/><inertia ixx="0.00015" ixy="0" ixz="0" iyy="0.00015" iyz="0" izz="0.00015"/></inertial>
+  </link>
+  <link name="link3">
+    <visual><origin xyz="0 0 0" rpy="0 0 0"/><geometry><mesh filename="package://cv_robot/materials/meshes/arm1/link3.stl" scale="4.8 4.8 4.8"/></geometry><material name="arm_gray"/></visual>
+    <collision><origin xyz="0 0 0" rpy="0 0 0"/><geometry><mesh filename="package://cv_robot/materials/meshes/arm1/link3.stl" scale="4.8 4.8 4.8"/></geometry></collision>
+    <inertial><mass value="0.15"/><inertia ixx="0.00015" ixy="0" ixz="0" iyy="0.00015" iyz="0" izz="0.00015"/></inertial>
+  </link>
+  <link name="finger_a">
+    <visual><origin xyz="0 0 0" rpy="0 0 0"/><geometry><mesh filename="package://cv_robot/materials/meshes/arm1/finger_a.stl" scale="4.8 4.8 4.8"/></geometry><material name="arm_gray"/></visual>
+    <collision><origin xyz="0 0 0" rpy="0 0 0"/><geometry><mesh filename="package://cv_robot/materials/meshes/arm1/finger_a.stl" scale="4.8 4.8 4.8"/></geometry></collision>
+    <inertial><mass value="0.05"/><inertia ixx="0.00005" ixy="0" ixz="0" iyy="0.00005" iyz="0" izz="0.00005"/></inertial>
+  </link>
+  <link name="finger_b">
+    <visual><origin xyz="0 0 0" rpy="0 0 0"/><geometry><mesh filename="package://cv_robot/materials/meshes/arm1/finger_b.stl" scale="4.8 4.8 4.8"/></geometry><material name="arm_gray"/></visual>
+    <collision><origin xyz="0 0 0" rpy="0 0 0"/><geometry><mesh filename="package://cv_robot/materials/meshes/arm1/finger_b.stl" scale="4.8 4.8 4.8"/></geometry></collision>
+    <inertial><mass value="0.05"/><inertia ixx="0.00005" ixy="0" ixz="0" iyy="0.00005" iyz="0" izz="0.00005"/></inertial>
+  </link>
+ 
+  <joint name="base_to_dummy" type="revolute">
+    <parent link="base"/><child link="link1_dummy"/>
+    <origin xyz="0.00000 0.00000 0.35222" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/> <!--yaw-->
+    <limit lower="-3.14" upper="3.14" effort="10" velocity="1.0"/>
+    </joint>
+
+  <joint name="dummy_to_link1" type="revolute">
+    <parent link="link1_dummy"/><child link="link1"/>
+    <origin xyz="0.00000 0.00000 0.00000" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/> <!--roll, confirmed in rviz first with TF-->
+    <limit lower="-1.57" upper="1.57" effort="10" velocity="1.0"/>
+  </joint>
+  
+  <joint name="link1_to_link2" type="revolute">
+    <parent link="link1"/><child link="link2"/>
+    <origin xyz="0.06710 -0.62904 0.36082" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-1.57" upper="1.57" effort="10" velocity="1.0"/>
+  </joint>
+  <joint name="link2_to_link3" type="revolute">
+    <parent link="link2"/><child link="link3"/>
+    <origin xyz="-0.02938 0.12077 0.06835" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="2.00" upper="1.57" effort="10" velocity="1.0"/>
+  </joint>
+  <joint name="link3_to_finger_a" type="revolute">
+    <parent link="link3"/><child link="finger_a"/>
+     <origin xyz="0.00518 0.08155 0.09274" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="0.0" upper="0.8" effort="10" velocity="1.0"/>
+  </joint>
+  <joint name="link3_to_finger_b" type="revolute">
+    <parent link="link3"/><child link="finger_b"/>
+    <origin xyz="0.01181 0.12787 0.04939" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.8" upper="0.0" effort="10" velocity="1.0"/>
+  </joint>
+</xacro:macro>
+</robot>

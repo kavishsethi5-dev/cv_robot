@@ -1,0 +1,166 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+<xacro:macro name="arm" params="parent xyz rpy">
+
+<material name="arm_gray">
+    <color rgba="0.35 0.37 0.4 1"/>
+</material>
+
+<joint name="arm_mount_joint" type="fixed">
+  <parent link="${parent}"/>
+  <child link="base"/>
+  <origin xyz="${xyz}" rpy="${rpy}"/>
+</joint>
+
+<link name="base">
+  <visual><origin xyz="0 0 0" rpy="0 0 0"/><geometry><mesh filename="package://cv_robot/materials/meshes/arm1/base.stl" scale="1 1 1"/></geometry><material name="arm_gray"/></visual>
+  <collision><origin xyz="0 0 0" rpy="0 0 0"/><geometry><mesh filename="package://cv_robot/materials/meshes/arm1/base.stl" scale="1 1 1"/></geometry></collision>
+  <inertial><mass value="1.5"/><inertia ixx="0.00600" ixy="0" ixz="0" iyy="0.00600" iyz="0" izz="0.00900"/></inertial>
+</link>
+
+<link name="link1_dummy">
+  <inertial><mass value="0.05"/><inertia ixx="0.00001" ixy="0" ixz="0" iyy="0.00001" iyz="0" izz="0.00001"/></inertial>
+</link>
+
+<link name="link1">
+  <visual><origin xyz="0 0 0" rpy="0 0 0"/><geometry><mesh filename="package://cv_robot/materials/meshes/arm1/link1.stl" scale="1 1 1"/></geometry><material name="arm_gray"/></visual>
+  <collision><origin xyz="0 0 0" rpy="0 0 0"/><geometry><mesh filename="package://cv_robot/materials/meshes/arm1/link1.stl" scale="1 1 1"/></geometry></collision>
+  <inertial><mass value="1.0"/><inertia ixx="0.00300" ixy="0" ixz="0" iyy="0.00300" iyz="0" izz="0.00150"/></inertial>
+</link>
+
+<link name="link2">
+  <visual><origin xyz="0 0 0" rpy="0 0 0"/><geometry><mesh filename="package://cv_robot/materials/meshes/arm1/link2.stl" scale="1 1 1"/></geometry><material name="arm_gray"/></visual>
+  <collision><origin xyz="0 0 0" rpy="0 0 0"/><geometry><mesh filename="package://cv_robot/materials/meshes/arm1/link2.stl" scale="1 1 1"/></geometry></collision>
+  <inertial><mass value="0.6"/><inertia ixx="0.00120" ixy="0" ixz="0" iyy="0.00120" iyz="0" izz="0.00060"/></inertial>
+</link>
+
+<link name="link3">
+  <visual><origin xyz="0 0 0" rpy="0 0 0"/><geometry><mesh filename="package://cv_robot/materials/meshes/arm1/link3.stl" scale="1 1 1"/></geometry><material name="arm_gray"/></visual>
+  <collision><origin xyz="0 0 0" rpy="0 0 0"/><geometry><mesh filename="package://cv_robot/materials/meshes/arm1/link3.stl" scale="1 1 1"/></geometry></collision>
+  <inertial><mass value="0.3"/><inertia ixx="0.00040" ixy="0" ixz="0" iyy="0.00040" iyz="0" izz="0.00025"/></inertial>
+</link>
+
+<link name="finger_a">
+  <visual><origin xyz="0 0 0" rpy="0 0 0"/><geometry><mesh filename="package://cv_robot/materials/meshes/arm1/finger_a.stl" scale="1 1 1"/></geometry><material name="arm_gray"/></visual>
+  <collision><origin xyz="0 0 0" rpy="0 0 0"/><geometry><mesh filename="package://cv_robot/materials/meshes/arm1/finger_a.stl" scale="1 1 1"/></geometry></collision>
+  <inertial><mass value="0.08"/><inertia ixx="0.00003" ixy="0" ixz="0" iyy="0.00003" iyz="0" izz="0.00002"/></inertial>
+</link>
+
+<link name="finger_b">
+  <visual><origin xyz="0 0 0" rpy="0 0 0"/><geometry><mesh filename="package://cv_robot/materials/meshes/arm1/finger_b.stl" scale="1 1 1"/></geometry><material name="arm_gray"/></visual>
+  <collision><origin xyz="0 0 0" rpy="0 0 0"/><geometry><mesh filename="package://cv_robot/materials/meshes/arm1/finger_b.stl" scale="1 1 1"/></geometry></collision>
+  <inertial><mass value="0.08"/><inertia ixx="0.00003" ixy="0" ixz="0" iyy="0.00003" iyz="0" izz="0.00002"/></inertial>
+</link>
+
+<joint name="base_to_dummy" type="revolute">
+  <parent link="base"/><child link="link1_dummy"/>
+  <origin xyz="0.006634 0 0.184151" rpy="0 0 0"/>
+  <axis xyz="0 0 1"/>
+  <limit lower="-3.14" upper="3.14" effort="10" velocity="1.0"/>
+</joint>
+
+<joint name="dummy_to_link1" type="revolute">
+  <parent link="link1_dummy"/><child link="link1"/>
+  <origin xyz="0 0 0" rpy="0 0 0"/>
+  <axis xyz="1 0 0"/>
+  <limit lower="-1.57" upper="1.57" effort="10" velocity="1.0"/>
+</joint>
+
+<joint name="link1_to_link2" type="revolute">
+  <parent link="link1"/><child link="link2"/>
+  <origin xyz="0.017930 -0.130747 0.183429" rpy="0 0 0"/>
+  <axis xyz="1 0 0"/>
+  <limit lower="-1.57" upper="1.57" effort="10" velocity="1.0"/>
+</joint>
+
+<joint name="link2_to_link3" type="revolute">
+  <parent link="link2"/><child link="link3"/>
+  <origin xyz="-0.000077 0.164135 0.031558" rpy="0 0 0"/>
+  <axis xyz="1 0 0"/>
+  <limit lower="-2.00" upper="1.57" effort="10" velocity="1.0"/>
+</joint>
+
+<joint name="link3_to_finger_b" type="revolute">
+  <parent link="link3"/><child link="finger_b"/>
+  <origin xyz="0.000886 0.062239 0.001315" rpy="0 0 0"/>
+  <axis xyz="1 0 0"/>
+  <limit lower="0.0" upper="0.8" effort="10" velocity="1.0"/>
+</joint>
+
+<joint name="link3_to_finger_a" type="revolute">
+  <parent link="link3"/><child link="finger_a"/>
+  <origin xyz="-0.002362 0.038938 0.050349" rpy="0 0 0"/>
+  <axis xyz="1 0 0"/>
+  <limit lower="-0.8" upper="0.0" effort="10" velocity="1.0"/>
+</joint>
+
+<ros2_control name="ArmSystem" type="system"> <!-- we can also put this in a sep file and then xacro-->
+  <hardware>
+    <plugin>gz_ros2_control/GazeboSimSystem</plugin>
+  </hardware>
+
+  <!-- Arm joints -->
+  <joint name="base_to_dummy">
+    <command_interface name="position">
+      <param name="min">-3.14</param>
+      <param name="max">3.14</param>
+    </command_interface>
+    <state_interface name="position"/>
+    <state_interface name="velocity"/>
+  </joint>
+
+  <joint name="dummy_to_link1">
+    <command_interface name="position">
+      <param name="min">-1.57</param>
+      <param name="max">1.57</param>
+    </command_interface>
+    <state_interface name="position"/>
+    <state_interface name="velocity"/>
+  </joint>
+
+  <joint name="link1_to_link2">
+    <command_interface name="position">
+      <param name="min">-2.35</param>
+      <param name="max">2.35</param>
+    </command_interface>
+    <state_interface name="position"/>
+    <state_interface name="velocity"/>
+  </joint>
+
+  <joint name="link2_to_link3">
+    <command_interface name="position">
+      <param name="min">-2.35</param>
+      <param name="max">2.35</param>
+    </command_interface>
+    <state_interface name="position"/>
+    <state_interface name="velocity"/>
+  </joint>
+
+  <!-- finger joints -->
+  <joint name="link3_to_finger_a">
+    <command_interface name="position">
+      <param name="min">0.0</param>
+      <param name="max">0.04</param>
+    </command_interface>
+    <state_interface name="position"/>
+    <state_interface name="velocity"/>
+  </joint>
+
+  <joint name="link3_to_finger_b">
+    <command_interface name="position">
+      <param name="min">0.0</param>
+      <param name="max">0.04</param>
+    </command_interface>
+    <state_interface name="position"/>
+    <state_interface name="velocity"/>
+  </joint>
+
+</ros2_control>
+<gazebo>
+  <plugin filename="gz_ros2_control-system" name="gz_ros2_control::GazeboSimROS2ControlPlugin">
+    <parameters>$(find cv_robot)/config/arm_controllers.yaml</parameters>
+  </plugin>
+</gazebo>
+
+</xacro:macro>
+</robot>
