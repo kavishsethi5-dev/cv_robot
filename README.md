@@ -1,4 +1,4 @@
-<<<<<<< Updated upstream
+<<<<<<< superceded by cv_robot_pick_place
 TBD
 =======
 # cv_robot
